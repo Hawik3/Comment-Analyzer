@@ -1,0 +1,51 @@
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\Comment Analyzer.exe
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\Comment Analyzer.deps.json
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\Comment Analyzer.runtimeconfig.json
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\Comment Analyzer.dll
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\Comment Analyzer.pdb
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\Microsoft.ML.Core.dll
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\Microsoft.ML.Data.dll
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\Microsoft.ML.KMeansClustering.dll
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\Microsoft.ML.PCA.dll
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\Microsoft.ML.StandardTrainers.dll
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\Microsoft.ML.Transforms.dll
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\Microsoft.ML.dll
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\Microsoft.ML.CpuMath.dll
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\Microsoft.ML.DataView.dll
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\Newtonsoft.Json.dll
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\System.Numerics.Tensors.dll
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\runtimes\linux-arm\native\libLdaNative.so
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\runtimes\linux-arm64\native\libLdaNative.so
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\runtimes\linux-x64\native\libLdaNative.so
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\runtimes\osx-arm64\native\libLdaNative.dylib
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\runtimes\osx-x64\native\libLdaNative.dylib
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\runtimes\win-arm64\native\LdaNative.dll
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\runtimes\win-x64\native\LdaNative.dll
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\runtimes\win-x86\native\LdaNative.dll
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\Microsoft.Windows.SDK.NET.dll
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\WinRT.Runtime.dll
+E:\Новая папка\Comment Analyzer\Comment Analyzer\obj\Debug\net8.0-windows10.0.17763.0\Comment Analyzer.csproj.AssemblyReference.cache
+E:\Новая папка\Comment Analyzer\Comment Analyzer\obj\Debug\net8.0-windows10.0.17763.0\App.g.cs
+E:\Новая папка\Comment Analyzer\Comment Analyzer\obj\Debug\net8.0-windows10.0.17763.0\Comment Analyzer_MarkupCompile.cache
+E:\Новая папка\Comment Analyzer\Comment Analyzer\obj\Debug\net8.0-windows10.0.17763.0\Comment Analyzer_MarkupCompile.lref
+E:\Новая папка\Comment Analyzer\Comment Analyzer\obj\Debug\net8.0-windows10.0.17763.0\Comment Analyzer.g.resources
+E:\Новая папка\Comment Analyzer\Comment Analyzer\obj\Debug\net8.0-windows10.0.17763.0\Comment Analyzer.GeneratedMSBuildEditorConfig.editorconfig
+E:\Новая папка\Comment Analyzer\Comment Analyzer\obj\Debug\net8.0-windows10.0.17763.0\Comment Analyzer.AssemblyInfoInputs.cache
+E:\Новая папка\Comment Analyzer\Comment Analyzer\obj\Debug\net8.0-windows10.0.17763.0\Comment Analyzer.AssemblyInfo.cs
+E:\Новая папка\Comment Analyzer\Comment Analyzer\obj\Debug\net8.0-windows10.0.17763.0\Comment Analyzer.csproj.CoreCompileInputs.cache
+E:\Новая папка\Comment Analyzer\Comment Analyzer\obj\Debug\net8.0-windows10.0.17763.0\Comment Analyzer.dll
+E:\Новая папка\Comment Analyzer\Comment Analyzer\obj\Debug\net8.0-windows10.0.17763.0\refint\Comment Analyzer.dll
+E:\Новая папка\Comment Analyzer\Comment Analyzer\obj\Debug\net8.0-windows10.0.17763.0\Comment Analyzer.pdb
+E:\Новая папка\Comment Analyzer\Comment Analyzer\obj\Debug\net8.0-windows10.0.17763.0\Comment Analyzer.genruntimeconfig.cache
+E:\Новая папка\Comment Analyzer\Comment Analyzer\obj\Debug\net8.0-windows10.0.17763.0\ref\Comment Analyzer.dll
+E:\Новая папка\Comment Analyzer\Comment Analyzer\obj\Debug\net8.0-windows10.0.17763.0\Comment .43F8B09D.Up2Date
+E:\Новая папка\Comment Analyzer\Comment Analyzer\obj\Debug\net8.0-windows10.0.17763.0\GeneratedInternalTypeHelper.g.cs
+E:\Новая папка\Comment Analyzer\Comment Analyzer\obj\Debug\net8.0-windows10.0.17763.0\View\MainWindow.g.cs
+E:\Новая папка\Comment Analyzer\Comment Analyzer\obj\Debug\net8.0-windows10.0.17763.0\View\MainWindow.baml
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\ClosedXML.dll
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\DocumentFormat.OpenXml.dll
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\ExcelNumberFormat.dll
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\Irony.dll
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\SixLabors.Fonts.dll
+E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\XLParser.dll
+E:\Новая папка\Comment Analyzer\Comment Analyzer\obj\Debug\net8.0-windows10.0.17763.0\View\Dictionary.baml
