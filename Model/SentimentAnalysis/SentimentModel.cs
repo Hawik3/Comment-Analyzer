@@ -10,7 +10,7 @@ namespace Comment_Analyzer.Model.SentimentAnalysis
 {
     public class SentimentModel
     {
-        const string _pathToModel = @"E:\Новая папка\Comment Analyzer\Comment Analyzer\Model\SentimentAnalysis\sentimentAnalysisModel.zip";
+        const string _pathToModel = @"";
         const string _pathToDataset = @"";
         readonly ITransformer _model;
         readonly MLContext _MLcontext;
@@ -62,8 +62,7 @@ namespace Comment_Analyzer.Model.SentimentAnalysis
             {
 
                 var predictionFunction = _MLcontext.Model.CreatePredictionEngine<SentimentData, SentimentPrediction>(_model);
-                var progressWindow = new ProgressWindow( "Comments are being analyzed.Please wait", true ,array.Length);
-                progressWindow.Show();
+               
                 for (int i = 0; i < array.Length; i++)
                 {
                     SentimentData sampleStatement = new()
@@ -78,14 +77,14 @@ namespace Comment_Analyzer.Model.SentimentAnalysis
                         CommentText = array[i].ToString()
 
                     };
-                    progressWindow.progressBar.Value = i;
+                    
 
                     yield return excelTable;
                 }
 
 
 
-                progressWindow.Close();
+               
                 yield break;
 
             }

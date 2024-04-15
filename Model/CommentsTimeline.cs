@@ -9,16 +9,16 @@
     {
         public static ISeries[]? CommentsToTimeline(string filePath, int column)
         {
-            // RENAME VALUES NAME!!!!!!!!!!
+            
             ClosedXML.Excel.XLCellValue[]? dateTimeArray = ExcelRedactor.GetArrayFromFile(filePath, column);
             if(dateTimeArray == null)
             {
                 return null;
             }
-            var val = GetCommentsCount(dateTimeArray);
+            var commentsCount = GetCommentsCount(dateTimeArray);
             return [new LineSeries<int>
                      {
-                        Values = val.Values,Stroke = new SolidColorPaint(SKColors.Blue) { StrokeThickness = 4 },
+                        Values = commentsCount.Values,Stroke = new SolidColorPaint(SKColors.Blue) { StrokeThickness = 4 },
                         GeometryFill = null,
                          GeometryStroke = null 
                      }];
@@ -28,12 +28,12 @@
         }
         private static Dictionary<DateTime, int> GetCommentsCount(ClosedXML.Excel.XLCellValue[] dateTimeArray)
         {
-            List<string> str = [];
+            List<string> dataList = [];
             foreach (ClosedXML.Excel.XLCellValue strs in dateTimeArray)
             {
-                str.Add(strs.ToString());
+                dataList.Add(strs.ToString());
             }
-            List<DateTime> dates = [.. str.Select(DateTime.Parse)];
+            List<DateTime> dates = [.. dataList.Select(DateTime.Parse)];
             DateTime firstDate = dates.Min();
             var limitDate = firstDate.AddDays(30);
             List<DateTime> filteredDates = dates.Where(d => d <= limitDate).ToList();

@@ -102,10 +102,13 @@ namespace Comment_Analyzer.ViewModel
                 case 1:
                     if (!_isSentimentAnalysisWasOpen)
                     {
+                        
+                        var progressWindow = new ProgressWindow("Adding data to list");
                         Scores = _sentimentModel.PredictFile(FilePath, Column);
-                        var ProgressWindow = new ProgressWindow("Adding data to list", false);
+                        
                         Score = Scores.Average(x => x.Score);
                         _isSentimentAnalysisWasOpen = true;
+                        progressWindow.Close();
                     }
                     break;
                 case 2:

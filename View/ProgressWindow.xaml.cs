@@ -22,7 +22,7 @@ namespace Comment_Analyzer.View
     public partial class ProgressWindow : Window
     {
 
-        public ProgressWindow(string Text, bool addProgressBar, int MaxValue = 0 )
+        public ProgressWindow(string Text, bool addProgressBar = false, int MaxValue = 0 )
         {
             InitializeComponent();
             progressBar.IsEnabled = addProgressBar;
