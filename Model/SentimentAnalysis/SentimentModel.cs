@@ -1,4 +1,5 @@
 ﻿using Comment_Analyzer.Model.Excel;
+using Comment_Analyzer.View;
 using Microsoft.ML;
 using Microsoft.ML.Data;
 using System.Diagnostics;
@@ -9,7 +10,7 @@ namespace Comment_Analyzer.Model.SentimentAnalysis
 {
     public class SentimentModel
     {
-        const string _pathToModel = @"";
+        const string _pathToModel = @"E:\Новая папка\Comment Analyzer\Comment Analyzer\Model\SentimentAnalysis\sentimentAnalysisModel.zip";
         const string _pathToDataset = @"";
         readonly ITransformer _model;
         readonly MLContext _MLcontext;
@@ -43,6 +44,7 @@ namespace Comment_Analyzer.Model.SentimentAnalysis
         public void Predict(string comment)
         {
 
+
             var predictionFunction = _MLcontext.Model.CreatePredictionEngine<SentimentTrainData, SentimentTrainPrediction>(_model);
             SentimentTrainData sampleStatement = new()
             {
@@ -52,34 +54,42 @@ namespace Comment_Analyzer.Model.SentimentAnalysis
             var resultPrediction = predictionFunction.Predict(sampleStatement);
             Debug.WriteLine(resultPrediction.Score);
         }
-        public IEnumerable<ExcelTable> PredictFile(string path, int column)
+        public IEnumerable<ExcelSentimentTable> PredictFile(string path, int column)
         {
+
             var array = ExcelRedactor.GetArrayFromFile(path, column);
             if (array != null)
             {
-                var predictionFunction = _MLcontext.Model.CreatePredictionEngine<SentimentData, SentimentPrediction>(_model);
 
+                var predictionFunction = _MLcontext.Model.CreatePredictionEngine<SentimentData, SentimentPrediction>(_model);
+                var progressWindow = new ProgressWindow( "Comments are being analyzed.Please wait", true ,array.Length);
+                progressWindow.Show();
                 for (int i = 0; i < array.Length; i++)
                 {
-                    SentimentData sampleStatement = new ()
+                    SentimentData sampleStatement = new()
                     {
                         Text = array[i].ToString()
                     };
 
                     var resultPrediction = predictionFunction.Predict(sampleStatement);
-                    ExcelTable excelTable = new()
+                    ExcelSentimentTable excelTable = new()
                     {
                         Score = resultPrediction.Score,
                         CommentText = array[i].ToString()
 
                     };
+                    progressWindow.progressBar.Value = i;
 
                     yield return excelTable;
                 }
+
+
+
+                progressWindow.Close();
                 yield break;
 
             }
-           
+
             yield break;
         }
         public class SentimentTrainData

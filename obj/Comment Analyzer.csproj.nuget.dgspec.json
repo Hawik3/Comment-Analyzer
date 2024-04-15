@@ -52,23 +52,27 @@
           "dependencies": {
             "ClosedXML": {
               "target": "Package",
-              "version": "[0.102.2, )"
+              "version": "[0.104.0-preview2, )"
+            },
+            "LiveChartsCore.SkiaSharpView.WPF": {
+              "target": "Package",
+              "version": "[2.0.0-rc2, )"
             },
             "Microsoft.ML": {
               "target": "Package",
-              "version": "[3.0.1, )"
+              "version": "[4.0.0-preview.24162.2, )"
             },
             "Microsoft.ML.CpuMath": {
               "target": "Package",
-              "version": "[3.0.1, )"
+              "version": "[4.0.0-preview.24162.2, )"
             },
             "Microsoft.ML.DataView": {
               "target": "Package",
-              "version": "[3.0.1, )"
+              "version": "[4.0.0-preview.24162.2, )"
             },
             "System.Numerics.Tensors": {
               "target": "Package",
-              "version": "[8.0.0, )"
+              "version": "[9.0.0-preview.3.24172.9, )"
             }
           },
           "imports": [

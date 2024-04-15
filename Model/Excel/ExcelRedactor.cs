@@ -6,7 +6,7 @@ namespace Comment_Analyzer.Model
 {
     public class ExcelRedactor
     {
-        public static XLCellValue[]? GetArrayFromFile(string filePath, int column = 7)
+        public static XLCellValue[]? GetArrayFromFile(string filePath, int column)
         {
             try
             {
@@ -20,14 +20,8 @@ namespace Comment_Analyzer.Model
                 MessageBox.Show(ex.Message);
                 return null;
             }
-
-
-        }
-        
             
-
-
-        
+        }
     }
 
 }

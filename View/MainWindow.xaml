@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Comment_Analyzer.View"
+    xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:Comment_Analyzer.ViewModel"
     Title="MainWindow"
@@ -28,7 +29,8 @@
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
                 Background="White"
-                Command="{Binding OpenCommand}" Content="Open"/>
+                Command="{Binding OpenCommand}"
+                Content="Open" />
 
             <StackPanel Margin="10,7,10,0">
                 <TextBlock Text="Column:" />
@@ -43,37 +45,75 @@
                 FontSize="20"
                 Text="{Binding FilePath}" />
         </StackPanel>
-        <StackPanel Margin="25,1,0,0" Orientation="Horizontal">
-            <TextBlock Text="Sentiment average score: " />
-            <TextBlock Text="{Binding Score}" />
-        </StackPanel>
+        <TabControl
+            x:Name="tabs"
+            Margin="20,20,20,20"
+            SelectedIndex="{Binding SelectedTabIndex}">
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="deeev" />
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel />
+                </TabItem.Content>
+            </TabItem>
+            <TabItem IsEnabled="{Binding IsFileSelected}">
+                <TabItem.Header>
+                    <TextBlock>Sentiment</TextBlock>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel>
+                        <StackPanel Margin="25,1,0,0" Orientation="Horizontal">
+                            <TextBlock Text="Sentiment average score: " />
+                            <TextBlock Text="{Binding Score}" />
+                        </StackPanel>
 
 
-        <ScrollViewer
-            Height="300"
-            Margin="25,0,25,0"
-            HorizontalScrollBarVisibility="Auto"
-            VerticalScrollBarVisibility="Visible">
-            <DataGrid
-                Name="MetricsDataGrid"
-                AutoGenerateColumns="False"
-                EnableRowVirtualization="True"
-                IsReadOnly="True"
-                ItemsSource="{Binding Scores}"
-                VirtualizingPanel.IsVirtualizing="True">
+                        <ScrollViewer
+                            Height="320"
+                            Margin="25,0,20,10"
+                            HorizontalScrollBarVisibility="Auto"
+                            VerticalScrollBarVisibility="Visible">
+                            <DataGrid
+                                Name="MetricsDataGrid"
+                                AutoGenerateColumns="False"
+                                EnableRowVirtualization="True"
+                                IsReadOnly="True"
+                                ItemsSource="{Binding Scores}"
+                                ScrollViewer.CanContentScroll="True"
+                                VirtualizingPanel.IsVirtualizing="True">
 
-                <DataGrid.Columns>
-                    <DataGridTextColumn
-                        Width="800"
-                        Binding="{Binding CommentText}"
-                        Header="Comment text" />
-                    <DataGridTextColumn
-                        Width="180"
-                        Binding="{Binding Score}"
-                        Header="Prediction score" />
-                </DataGrid.Columns>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn
+                                        Width="750"
+                                        Binding="{Binding CommentText}"
+                                        Header="Comment text" />
+                                    <DataGridTextColumn
+                                        Width="180"
+                                        Binding="{Binding Score}"
+                                        Header="Prediction score" />
+                                </DataGrid.Columns>
 
-            </DataGrid>
-        </ScrollViewer>
+                            </DataGrid>
+                        </ScrollViewer>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem IsEnabled="{Binding IsFileSelected}">
+                <TabItem.Header>
+                    <TextBlock Text="Timeline" />
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel>
+
+                        <lvc:CartesianChart  Height="300" Series="{Binding Series}">
+
+                        </lvc:CartesianChart>
+
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+        </TabControl>
+
     </StackPanel>
 </Window>
