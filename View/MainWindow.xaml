@@ -31,11 +31,19 @@
                 Command="{Binding OpenCommand}" Content="Open"/>
 
             <StackPanel Margin="10,7,10,0">
-                <TextBlock Text="Column:" />
+                <TextBlock Text="Comment text column:" />
                 <ComboBox
                     Background="White"
                     ItemsSource="{Binding Numbers}"
-                    SelectedValue="{Binding Column}" />
+                    SelectedValue="{Binding CommentTextColumn}" />
+
+            </StackPanel>
+            <StackPanel Margin="10,7,10,0">
+                <TextBlock Text="Date time column:"  />
+                <ComboBox
+                    Background="White"
+                    ItemsSource="{Binding Numbers}"
+                    SelectedValue="{Binding DateTimeColumn}" />
 
             </StackPanel>
             <TextBlock
@@ -43,6 +51,7 @@
                 FontSize="20"
                 Text="{Binding FilePath}" />
         </StackPanel>
+<<<<<<< Updated upstream
         <StackPanel Margin="25,1,0,0" Orientation="Horizontal">
             <TextBlock Text="Sentiment average score: " />
             <TextBlock Text="{Binding Score}" />
@@ -72,6 +81,89 @@
                         Binding="{Binding Score}"
                         Header="Prediction score" />
                 </DataGrid.Columns>
+=======
+        <TabControl
+            x:Name="tabs"
+            Margin="20,20,20,20"
+            SelectedIndex="{Binding SelectedTabIndex}">
+            <TabItem>
+                <TabItem.Header>
+                    <TextBlock Text="Start page" />
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel>
+                        <TextBlock Text="Comment Analyzer v0.2" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center"/>
+                        <TextBlock Text="Select excel file with comments and select column with data." FontSize="16" />
+                        <TextBlock FontSize="16" >Comment text often have header "TextDisplay" or "TextOriginal". Better to choose "TextOriginal" because "TextDisplay" have tags</TextBlock>
+                        <TextBlock FontSize="16" >Column with data often have header "PublishedAtUTC" or "UpdatedAtUTC". Better to choose "PublishedAtUTC"</TextBlock>
+                        <TextBlock FontSize="20" FontWeight="Bold"> Don't forget to delete headers to avoid bugs!</TextBlock>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem IsEnabled="{Binding IsFileSelected}">
+                <TabItem.Header>
+                    <TextBlock>Sentiment</TextBlock>
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel>
+                        <StackPanel Margin="25,1,0,0" Orientation="Horizontal">
+                            <TextBlock Text="Sentiment average score: " />
+                            <TextBlock Text="{Binding AverageSentimentScore}" />
+                        </StackPanel>
+
+
+                        <ScrollViewer
+                            Height="320"
+                            Margin="25,0,20,10"
+                            HorizontalScrollBarVisibility="Auto"
+                            VerticalScrollBarVisibility="Visible">
+                            <DataGrid
+                                Name="MetricsDataGrid"
+                                AutoGenerateColumns="False"
+                                EnableRowVirtualization="True"
+                                IsReadOnly="True"
+                                ItemsSource="{Binding SentimentScores}"
+                                ScrollViewer.CanContentScroll="True"
+                                VirtualizingPanel.IsVirtualizing="True">
+
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn
+                                        Width="750"
+                                        Binding="{Binding CommentText}"
+                                        Header="Comment text"
+                                        ScrollViewer.CanContentScroll="True"
+                                        VirtualizingPanel.IsVirtualizing="True" />
+                                    <DataGridTextColumn
+                                        Width="180"
+                                        Binding="{Binding Score}"
+                                        Header="Prediction score"
+                                        ScrollViewer.CanContentScroll="True"
+                                        VirtualizingPanel.IsVirtualizing="True" />
+                                </DataGrid.Columns>
+
+                            </DataGrid>
+                        </ScrollViewer>
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+            <TabItem IsEnabled="{Binding IsFileSelected}">
+                <TabItem.Header>
+                   Timeline
+                </TabItem.Header>
+                <TabItem.Content>
+                    <StackPanel>
+
+                        <lvc:CartesianChart
+                            Height="300"
+                            Series="{Binding CommentTimeline}"
+                            XAxes="{Binding XAxis}"
+                            ZoomMode="X" />
+
+                    </StackPanel>
+                </TabItem.Content>
+            </TabItem>
+        </TabControl>
+>>>>>>> Stashed changes
 
             </DataGrid>
         </ScrollViewer>

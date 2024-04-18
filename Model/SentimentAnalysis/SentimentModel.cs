@@ -9,14 +9,16 @@ namespace Comment_Analyzer.Model.SentimentAnalysis
 {
     public class SentimentModel
     {
-        const string _pathToModel = @"";
+        const string _pathToModel = @"E:\Новая папка\Comment Analyzer\Comment Analyzer\Model\SentimentAnalysis\sentimentAnalysisModel.zip";
         const string _pathToDataset = @"";
         readonly ITransformer _model;
         readonly MLContext _MLcontext;
         public SentimentModel()
         {
             _MLcontext = new();
+            // Don't forget to indicate Model path
             _model = _MLcontext.Model.Load(_pathToModel, out var _);
+            // Don't forget to indicate Model path
         }
         public ITransformer Create()
         {
