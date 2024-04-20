@@ -1,12 +1,10 @@
-﻿using Comment_Analyzer.Model.Excel;
+﻿using Comment_Analyzer.Model;
+using Comment_Analyzer.Model.Excel;
 using Comment_Analyzer.Model.SentimentAnalysis;
 using Comment_Analyzer.Services;
-<<<<<<< Updated upstream
-=======
 using Comment_Analyzer.View;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
->>>>>>> Stashed changes
 using Microsoft.Win32;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -15,21 +13,6 @@ namespace Comment_Analyzer.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-<<<<<<< Updated upstream
-        private IEnumerable<ExcelTable> _scores = [];
-        public IEnumerable<ExcelTable> Scores
-        {
-            get { return _scores; }
-            set
-            {
-                _scores = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private float _score;
-        private int _column = 7;
-=======
         private RelayCommand? _openCommand;
         SentimentModel? _sentimentModel = null;
         private string _filePath = "";
@@ -42,15 +25,10 @@ namespace Comment_Analyzer.ViewModel
         private int _commentTextColumn = 7;
         private int _dateTimeColumn = 2;
         private ISeries[] _commentTimeline = [];
->>>>>>> Stashed changes
         public List<int> Numbers { get; } = Enumerable.Range(1, 10).ToList();
         public int CommentTextColumn
         {
-<<<<<<< Updated upstream
-            get { return _column; }
-=======
             get => _commentTextColumn;
->>>>>>> Stashed changes
             set
             {
                 _commentTextColumn = value;
@@ -83,30 +61,9 @@ namespace Comment_Analyzer.ViewModel
             {
                 _filePath = value;
                 OnPropertyChanged();
+                IsFileSelected = true;
             }
         }
-<<<<<<< Updated upstream
-        private string _filePath = "";
-
-        public RelayCommand OpenCommand
-        {
-            get
-            {
-                return _openCommand ??= new RelayCommand(obj =>
-                       {
-                           OpenFileDialog openFileDialog = new()
-                           {
-                               Filter = "Excel table (*.xlsx)|*.xlsx"
-                           };
-                           if (openFileDialog.ShowDialog() == true)
-                           {
-                               FilePath = openFileDialog.FileName;
-                               
-                               Scores = _sentimentModel.PredictFile(openFileDialog.FileName, Column);
-
-                               Score = Scores.Average(x => x.Score);
-                           }
-=======
         public bool IsFileSelected
         {
             get { return _isFileSelected; }
@@ -182,9 +139,7 @@ namespace Comment_Analyzer.ViewModel
                     if (!_isSentimentAnalysisWasOpen)
                     {
                         _sentimentModel = new();
-                        var progressWindow = new ProgressWindow("Predict Sentiment");
                         IEnumerable<ExcelSentimentTable> table = _sentimentModel.PredictFile(FilePath, CommentTextColumn);
-
                         await Task.Run(() =>
                         {
                             AverageSentimentScore = table.Average(x => x.Score);
@@ -192,9 +147,6 @@ namespace Comment_Analyzer.ViewModel
 
                             _isSentimentAnalysisWasOpen = true;
                         });
-
-                        progressWindow.Close();
-                        
                     }
                     break;
                 case 2:
@@ -207,7 +159,6 @@ namespace Comment_Analyzer.ViewModel
             }
         }
 
->>>>>>> Stashed changes
 
 
 

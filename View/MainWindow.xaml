@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:Comment_Analyzer.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:Comment_Analyzer.ViewModel"
+    xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
     Title="MainWindow"
     Width="1080"
     Height="480"
@@ -17,7 +18,7 @@
         </LinearGradientBrush>
     </Window.Background>
     <Window.DataContext>
-        <vm:MainViewModel />
+        <vm:MainViewModel/>
     </Window.DataContext>
     <StackPanel>
 
@@ -51,37 +52,7 @@
                 FontSize="20"
                 Text="{Binding FilePath}" />
         </StackPanel>
-<<<<<<< Updated upstream
-        <StackPanel Margin="25,1,0,0" Orientation="Horizontal">
-            <TextBlock Text="Sentiment average score: " />
-            <TextBlock Text="{Binding Score}" />
-        </StackPanel>
 
-
-        <ScrollViewer
-            Height="300"
-            Margin="25,0,25,0"
-            HorizontalScrollBarVisibility="Auto"
-            VerticalScrollBarVisibility="Visible">
-            <DataGrid
-                Name="MetricsDataGrid"
-                AutoGenerateColumns="False"
-                EnableRowVirtualization="True"
-                IsReadOnly="True"
-                ItemsSource="{Binding Scores}"
-                VirtualizingPanel.IsVirtualizing="True">
-
-                <DataGrid.Columns>
-                    <DataGridTextColumn
-                        Width="800"
-                        Binding="{Binding CommentText}"
-                        Header="Comment text" />
-                    <DataGridTextColumn
-                        Width="180"
-                        Binding="{Binding Score}"
-                        Header="Prediction score" />
-                </DataGrid.Columns>
-=======
         <TabControl
             x:Name="tabs"
             Margin="20,20,20,20"
@@ -148,7 +119,7 @@
             </TabItem>
             <TabItem IsEnabled="{Binding IsFileSelected}">
                 <TabItem.Header>
-                   Timeline
+                    Timeline
                 </TabItem.Header>
                 <TabItem.Content>
                     <StackPanel>
@@ -163,9 +134,5 @@
                 </TabItem.Content>
             </TabItem>
         </TabControl>
->>>>>>> Stashed changes
-
-            </DataGrid>
-        </ScrollViewer>
     </StackPanel>
 </Window>

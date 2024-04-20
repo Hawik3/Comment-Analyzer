@@ -9,7 +9,7 @@ namespace Comment_Analyzer.Model.SentimentAnalysis
 {
     public class SentimentModel
     {
-        const string _pathToModel = @"E:\Новая папка\Comment Analyzer\Comment Analyzer\Model\SentimentAnalysis\sentimentAnalysisModel.zip";
+        const string _pathToModel = @"";
         const string _pathToDataset = @"";
         readonly ITransformer _model;
         readonly MLContext _MLcontext;
@@ -54,7 +54,7 @@ namespace Comment_Analyzer.Model.SentimentAnalysis
             var resultPrediction = predictionFunction.Predict(sampleStatement);
             Debug.WriteLine(resultPrediction.Score);
         }
-        public IEnumerable<ExcelTable> PredictFile(string path, int column)
+        public IEnumerable<ExcelSentimentTable> PredictFile(string path, int column)
         {
             var array = ExcelRedactor.GetArrayFromFile(path, column);
             if (array != null)
@@ -69,7 +69,7 @@ namespace Comment_Analyzer.Model.SentimentAnalysis
                     };
 
                     var resultPrediction = predictionFunction.Predict(sampleStatement);
-                    ExcelTable excelTable = new()
+                    ExcelSentimentTable excelTable = new()
                     {
                         Score = resultPrediction.Score,
                         CommentText = array[i].ToString()
