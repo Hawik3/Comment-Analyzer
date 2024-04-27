@@ -2,7 +2,6 @@
 using Comment_Analyzer.Model.Excel;
 using Comment_Analyzer.Model.SentimentAnalysis;
 using Comment_Analyzer.Services;
-using Comment_Analyzer.View;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using Microsoft.Win32;
@@ -26,6 +25,7 @@ namespace Comment_Analyzer.ViewModel
         private int _dateTimeColumn = 2;
         private ISeries[] _commentTimeline = [];
         public List<int> Numbers { get; } = Enumerable.Range(1, 10).ToList();
+        public List<Axis> XAxis { get; } = [new Axis { Labeler = (value) => (value + "h").ToString() }];
         public int CommentTextColumn
         {
             get => _commentTextColumn;
@@ -53,7 +53,6 @@ namespace Comment_Analyzer.ViewModel
                 OnPropertyChanged();
             }
         }
-
         public string FilePath
         {
             get { return _filePath; }
@@ -105,7 +104,7 @@ namespace Comment_Analyzer.ViewModel
                 OnPropertyChanged();
             }
         }
-        public List<Axis> XAxis { get; } = [ new Axis{Labeler = (value) => (value + "h").ToString() } ];
+
         public RelayCommand OpenCommand
         {
             get
@@ -128,49 +127,63 @@ namespace Comment_Analyzer.ViewModel
                     });
             }
         }
-
-        public async void TabSelected(int index)
+        public void TabSelected(int index)
         {
             switch (index)
             {
                 case 0:
                     break;
                 case 1:
-                    if (!_isSentimentAnalysisWasOpen)
-                    {
-                        _sentimentModel = new();
-                        IEnumerable<ExcelSentimentTable> table = _sentimentModel.PredictFile(FilePath, CommentTextColumn);
-                        await Task.Run(() =>
-                        {
-                            AverageSentimentScore = table.Average(x => x.Score);
-                            SentimentScores = table;
-
-                            _isSentimentAnalysisWasOpen = true;
-                        });
-                    }
+                    SentimentAnlaysisTabSelected();
                     break;
                 case 2:
-                    if (!_isTimeLineWasOpen)
-                    {
-                        CommentTimeline = CommentsTimeline.CommentsToTimeline(FilePath, DateTimeColumn) ?? [];
-                        _isTimeLineWasOpen = true;
-                    }
+                    CommentTimelineTabSelected();
                     break;
             }
         }
-
-
-
-
-        public MainViewModel()
-        {
-        }
-
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
         public event PropertyChangedEventHandler? PropertyChanged;
+        private void CommentTimelineTabSelected()
+        {
+            if (!_isTimeLineWasOpen)
+            {
+                var timeline = CommentsTimeline.CommentsToTimeline(FilePath, DateTimeColumn);
+                if (timeline != null)
+                {
+                    CommentTimeline = timeline;
+
+                    _isTimeLineWasOpen = true;
+                }
+                else
+                {
+                    SwitchTabTo(0);
+                }
+
+            }
+
+        }
+        private void SwitchTabTo(int index)
+        {
+            SelectedTabIndex = index;
+        }
+        private async void SentimentAnlaysisTabSelected()
+        {
+            if (!_isSentimentAnalysisWasOpen)
+            {
+                _sentimentModel = new();
+                IEnumerable<ExcelSentimentTable> table = _sentimentModel.PredictFile(FilePath, CommentTextColumn);
+                await Task.Run(() =>
+                {
+                    AverageSentimentScore = table.Average(x => x.Score);
+                    SentimentScores = table;
+
+                    _isSentimentAnalysisWasOpen = true;
+                });
+            }
+        }
 
     }
 }

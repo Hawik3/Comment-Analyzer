@@ -5,49 +5,59 @@
     using LiveChartsCore.SkiaSharpView.Painting;
     using SkiaSharp;
 
-    public class CommentsTimeline
+    public static class CommentsTimeline
     {
         public static ISeries[]? CommentsToTimeline(string filePath, int column)
         {
-            
+
             ClosedXML.Excel.XLCellValue[]? dateTimeArray = ExcelRedactor.GetArrayFromFile(filePath, column);
-            if(dateTimeArray == null)
+            if (dateTimeArray == null)
             {
                 return null;
             }
-            var commentsCount = GetCommentsCount(dateTimeArray);
+            var commentsCount = GetCommentsCount(dateTimeArray, 7);
             return [new LineSeries<int>
             {
-                Values = commentsCount.Values,
+                Values = commentsCount,
                 Stroke = new SolidColorPaint(SKColors.Blue) { StrokeThickness = 4 },
                 GeometryFill = null,
                 GeometryStroke = null,
-                LineSmoothness = 1,
-                
+                LineSmoothness = 0.4,
+
             }];
         }
-        private static Dictionary<DateTime, int> GetCommentsCount(ClosedXML.Excel.XLCellValue[] dateTimeArray)
+        private static int[] GetCommentsCount(ClosedXML.Excel.XLCellValue[] dateTimeArray, int days)
         {
-            List<string> dataList = [];
-            foreach (ClosedXML.Excel.XLCellValue strs in dateTimeArray)
-            {
-                dataList.Add(strs.ToString());
-            }
-            List<DateTime> dates = [.. dataList.Select(DateTime.Parse)];
+            List<DateTime> dates = dateTimeArray.Select(value => DateTime.Parse(value.ToString())).ToList();
             DateTime firstDate = dates.Min();
-            var limitDate = firstDate.AddDays(30);
+            DateTime limitDate = firstDate.AddDays(days);
             List<DateTime> filteredDates = dates.Where(d => d <= limitDate).ToList();
-            
-            Dictionary<DateTime, int> commentsCount = [];
-            for (int i = 0; i < 721; i++)
+            int hours = (days * 24);
+            int[] hoursCount = new int[hours]; 
+            for (int i = 0; i < filteredDates.Count; i++)
             {
-                commentsCount.Add(firstDate.AddHours(i), 0);
+                int hourIndex = GetHourIndex(filteredDates[i], firstDate, hours); 
+                hoursCount[hourIndex]++; 
             }
-            foreach (var date in filteredDates)
+
+            return hoursCount;
+
+        }
+        private static int GetHourIndex(DateTime dateTime, DateTime referenceDate, int hours)
+        {
+            TimeSpan timeSpan = dateTime - referenceDate;  
+            double totalHours = timeSpan.TotalHours; 
+            int hourIndex = (int)Math.Floor(totalHours); 
+            if (hourIndex < 0)
             {
-                commentsCount[new DateTime(date.Year, date.Month, date.Day, date.Hour, firstDate.Minute, firstDate.Second)]++;
+                hourIndex = 0;
             }
-            return commentsCount;
+            else if (hourIndex >= hours)
+            {
+                hourIndex = hours -1;
+            }
+
+            return hourIndex;
         }
     }
 }

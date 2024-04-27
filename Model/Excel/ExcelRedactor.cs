@@ -20,14 +20,7 @@ namespace Comment_Analyzer.Model
                 MessageBox.Show(ex.Message);
                 return null;
             }
-
-
         }
-        
-            
-
-
-        
     }
 
 }
