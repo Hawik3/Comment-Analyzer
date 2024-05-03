@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:Comment_Analyzer.ViewModel"
     xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
-    Title="MainWindow"
+    Title="Comment Timeline"
     Width="1080"
     Height="480"
     mc:Ignorable="d">
@@ -123,7 +123,6 @@
                 </TabItem.Header>
                 <TabItem.Content>
                     <StackPanel>
-
                         <lvc:CartesianChart
                             Height="300"
                             Series="{Binding CommentTimeline}"

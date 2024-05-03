@@ -146,29 +146,8 @@ namespace Comment_Analyzer.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
         public event PropertyChangedEventHandler? PropertyChanged;
-        private void CommentTimelineTabSelected()
-        {
-            if (!_isTimeLineWasOpen)
-            {
-                var timeline = CommentsTimeline.CommentsToTimeline(FilePath, DateTimeColumn);
-                if (timeline != null)
-                {
-                    CommentTimeline = timeline;
 
-                    _isTimeLineWasOpen = true;
-                }
-                else
-                {
-                    SwitchTabTo(0);
-                }
-
-            }
-
-        }
-        private void SwitchTabTo(int index)
-        {
-            SelectedTabIndex = index;
-        }
+        private void SwitchTabTo(int index) => SelectedTabIndex = index;
         private async void SentimentAnlaysisTabSelected()
         {
             if (!_isSentimentAnalysisWasOpen)
@@ -183,6 +162,25 @@ namespace Comment_Analyzer.ViewModel
                     _isSentimentAnalysisWasOpen = true;
                 });
             }
+        }
+        private void CommentTimelineTabSelected()
+        {
+            if (!_isTimeLineWasOpen)
+            {
+                ISeries[]? timeline = CommentsTimeline.CommentsToTimeline(FilePath, DateTimeColumn);
+                if (timeline != null)
+                {
+                    CommentTimeline = timeline;
+
+                    _isTimeLineWasOpen = true;
+                }
+                else
+                {
+                    SwitchTabTo(0);
+                }
+
+            }
+
         }
 
     }

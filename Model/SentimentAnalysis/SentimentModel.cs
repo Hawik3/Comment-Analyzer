@@ -2,6 +2,7 @@
 using Microsoft.ML;
 using Microsoft.ML.Data;
 using System.Diagnostics;
+using System.IO;
 
 
 
@@ -9,12 +10,13 @@ namespace Comment_Analyzer.Model.SentimentAnalysis
 {
     public class SentimentModel
     {
-        const string _pathToModel = @"";
+        const string _pathToModel = @"..\..\..\Model\SentimentAnalysis\sentimentAnalysisModel.zip";
         const string _pathToDataset = @"";
         readonly ITransformer _model;
         readonly MLContext _MLcontext;
         public SentimentModel()
         {
+            
             _MLcontext = new();
             // Don't forget to indicate Model path
             _model = _MLcontext.Model.Load(_pathToModel, out var _);
