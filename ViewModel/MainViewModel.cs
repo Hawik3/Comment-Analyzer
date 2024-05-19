@@ -6,26 +6,232 @@ using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using Microsoft.Win32;
 using System.ComponentModel;
+using System.Globalization;
 using System.Runtime.CompilerServices;
+using System.Windows.Data;
+using System.Windows;
 
 namespace Comment_Analyzer.ViewModel
 {
+    //public class SentimentAnalysisViewModel : INotifyPropertyChanged
+    //{
+    //    internal SentimentModel? _sentimentModel = null;
+    //    internal bool _isSentimentAnalysisWasOpen = false;
+    //    internal IEnumerable<ExcelSentimentTable> _sentimentScores = [];
+    //    internal float _averageSentimentScore;
+    //    public float AverageSentimentScore
+    //    {
+    //        get { return _averageSentimentScore; }
+    //        set
+    //        {
+    //            _averageSentimentScore = value;
+    //            OnPropertyChanged();
+    //        }
+    //    }
+
+
+
+    //    public IEnumerable<ExcelSentimentTable> SentimentScores
+    //    {
+    //        get { return _sentimentScores; }
+    //        set
+    //        {
+    //            _sentimentScores = value;
+    //            OnPropertyChanged();
+    //        }
+    //    }
+    //    internal void SentimentAnlaysisTabSelected(string FilePath, int CommentTextColumn)
+    //    {
+    //        if (!_isSentimentAnalysisWasOpen)
+    //        {
+    //            Thread analysis = new(StartAnalysis);
+    //            analysis.Start();
+
+    //        }
+    //        void StartAnalysis()
+    //        {
+    //            _sentimentModel = new();
+    //            IEnumerable<ExcelSentimentTable> table = _sentimentModel.PredictFile(FilePath, CommentTextColumn);
+    //            AverageSentimentScore = table.Average(x => x.Score);
+    //            SentimentScores = table;
+    //            _isSentimentAnalysisWasOpen = true;
+    //        }
+    //    }
+    //    public void OnPropertyChanged([CallerMemberName] string prop = "")
+    //    {
+    //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+    //    }
+    //    public event PropertyChangedEventHandler? PropertyChanged;
+    //}
+    //public class CommentTimelineViewModel : INotifyPropertyChanged 
+    //{
+    //    internal bool _isTimeLineWasOpen = false;
+    //    internal ISeries[] _commentTimeline = [];
+    //    public List<Axis> XAxis { get; } = [new Axis { Labeler = (value) => (value + "h").ToString() }];
+    //    public ISeries[] CommentTimeline
+    //    {
+    //        get { return _commentTimeline; }
+    //        set
+    //        {
+    //            _commentTimeline = value;
+    //            OnPropertyChanged();
+    //        }
+    //    }
+    //    internal void CommentTimelineTabSelected(string FilePath, int DateTimeColumn)
+    //    {
+    //        if (!_isTimeLineWasOpen)
+    //        {
+    //            ISeries[]? timeline = CommentsTimeline.CommentsToTimeline(FilePath, DateTimeColumn);
+    //            if (timeline is not null)
+    //            {
+    //                CommentTimeline = timeline;
+
+    //                _isTimeLineWasOpen = true;
+    //            }
+    //            else
+    //            {
+
+    //            }
+
+    //        }
+
+    //    }
+    //    public void OnPropertyChanged([CallerMemberName] string prop = "")
+    //    {
+    //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+    //    }
+    //    public event PropertyChangedEventHandler? PropertyChanged;
+    //}
+    
     public class MainViewModel : INotifyPropertyChanged
     {
+        
+        public class CommentTimelineViewModel : INotifyPropertyChanged
+        {
+            internal bool _isNotCommentTimeLineLoaded = true;
+            internal bool _isTimeLineWasOpen = false;
+            internal ISeries[] _commentTimeline = [];
+            public List<Axis> XAxis { get; } = [new Axis { Labeler = (value) => (value + "h").ToString() }];
+            public ISeries[] CommentTimeline
+            {
+                get { return _commentTimeline; }
+                set
+                {
+                    _commentTimeline = value;
+                    OnPropertyChanged();
+                }
+            }
+            public bool IsNotCommentTimeLineLoaded
+            {
+                get { return _isNotCommentTimeLineLoaded; }
+                set
+                {
+                    _isNotCommentTimeLineLoaded = value;
+                    OnPropertyChanged();
+                }
+            }
+            internal void CommentTimelineTabSelected(string FilePath, int DateTimeColumn)
+            {
+                if (!_isTimeLineWasOpen)
+                {
+                    Thread timeline = new(Start);
+                    timeline.Start();
+
+                }
+                void Start()
+                {
+                    ISeries[]? timeline = CommentsTimeline.CommentsToTimeline(FilePath, DateTimeColumn);
+                    if (timeline is not null)
+                    {
+                        CommentTimeline = timeline;
+
+                        _isTimeLineWasOpen = true;
+                        IsNotCommentTimeLineLoaded = false;
+                    }
+                    else
+                    {
+                        //SwitchTabTo(0);
+                    }
+                }
+
+            }
+            public void OnPropertyChanged([CallerMemberName] string prop = "")
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+            }
+            public event PropertyChangedEventHandler? PropertyChanged;
+        }
+        public class SentimentAnalysisViewModel : INotifyPropertyChanged
+        {
+
+            internal bool _isNotSentimentAnalysisLoaded = true;
+            internal SentimentModel? _sentimentModel = null;
+            internal bool _isSentimentAnalysisWasOpen = false;
+            internal IEnumerable<ExcelSentimentTable> _sentimentScores = [];
+            internal float _averageSentimentScore;
+            public bool IsNotSentimentAnalysisLoaded
+            {
+                get { return _isNotSentimentAnalysisLoaded; }
+                set
+                {
+                    _isNotSentimentAnalysisLoaded = value;
+                    OnPropertyChanged();
+                }
+            }
+            public float AverageSentimentScore
+            {
+                get { return _averageSentimentScore; }
+                set
+                {
+                    _averageSentimentScore = value;
+                    OnPropertyChanged();
+                }
+            }
+            public void OnPropertyChanged([CallerMemberName] string prop = "")
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+            }
+            public event PropertyChangedEventHandler? PropertyChanged;
+
+
+            public IEnumerable<ExcelSentimentTable> SentimentScores
+            {
+                get { return _sentimentScores; }
+                set
+                {
+                    _sentimentScores = value;
+                    OnPropertyChanged();
+                }
+            }
+            internal void SentimentAnlaysisTabSelected(string FilePath, int CommentTextColumn)
+            {
+                if (!_isSentimentAnalysisWasOpen)
+                {
+                    Thread analysis = new(StartAnalysis);
+                    analysis.Start();
+
+                }
+                void StartAnalysis()
+                {
+                    _sentimentModel = new();
+                    IEnumerable<ExcelSentimentTable> table = _sentimentModel.PredictFile(FilePath, CommentTextColumn);
+                    AverageSentimentScore = table.Average(x => x.Score);
+                    SentimentScores = table;
+                    _isSentimentAnalysisWasOpen = true;
+                    IsNotSentimentAnalysisLoaded = false;
+                }
+            }
+        }
+
+        public SentimentAnalysisViewModel SentimentAnalysis { get; set; } = new SentimentAnalysisViewModel();
+        public CommentTimelineViewModel CommentTimeline { get; set; } = new CommentTimelineViewModel();
         private RelayCommand? _openCommand;
-        SentimentModel? _sentimentModel = null;
         private string _filePath = "";
         private int _selectedTabIndex;
-        private bool _isSentimentAnalysisWasOpen = false;
-        private bool _isTimeLineWasOpen = false;
         private bool _isFileSelected = false;
-        private IEnumerable<ExcelSentimentTable> _sentimentScores = [];
-        private float _averageSentimentScore;
         private int _commentTextColumn = 7;
         private int _dateTimeColumn = 2;
-        private ISeries[] _commentTimeline = [];
         public List<int> Numbers { get; } = Enumerable.Range(1, 10).ToList();
-        public List<Axis> XAxis { get; } = [new Axis { Labeler = (value) => (value + "h").ToString() }];
         public int CommentTextColumn
         {
             get => _commentTextColumn;
@@ -41,15 +247,6 @@ namespace Comment_Analyzer.ViewModel
             set
             {
                 _dateTimeColumn = value;
-                OnPropertyChanged();
-            }
-        }
-        public float AverageSentimentScore
-        {
-            get { return _averageSentimentScore; }
-            set
-            {
-                _averageSentimentScore = value;
                 OnPropertyChanged();
             }
         }
@@ -72,15 +269,6 @@ namespace Comment_Analyzer.ViewModel
                 OnPropertyChanged();
             }
         }
-        public IEnumerable<ExcelSentimentTable> SentimentScores
-        {
-            get { return _sentimentScores; }
-            set
-            {
-                _sentimentScores = value;
-                OnPropertyChanged();
-            }
-        }
         public int SelectedTabIndex
         {
             get { return _selectedTabIndex; }
@@ -93,15 +281,6 @@ namespace Comment_Analyzer.ViewModel
                     OnPropertyChanged();
                     TabSelected(value);
                 }
-            }
-        }
-        public ISeries[] CommentTimeline
-        {
-            get { return _commentTimeline; }
-            set
-            {
-                _commentTimeline = value;
-                OnPropertyChanged();
             }
         }
 
@@ -121,8 +300,8 @@ namespace Comment_Analyzer.ViewModel
                         {
                             FilePath = openFileDialog.FileName;
                         }
-                        _isSentimentAnalysisWasOpen = false;
-                        _isTimeLineWasOpen = false;
+                        SentimentAnalysis._isSentimentAnalysisWasOpen = false;
+                        CommentTimeline._isTimeLineWasOpen = false;
 
                     });
             }
@@ -134,10 +313,10 @@ namespace Comment_Analyzer.ViewModel
                 case 0:
                     break;
                 case 1:
-                    SentimentAnlaysisTabSelected();
+                    SentimentAnalysis.SentimentAnlaysisTabSelected(FilePath, CommentTextColumn);
                     break;
                 case 2:
-                    CommentTimelineTabSelected();
+                    CommentTimeline.CommentTimelineTabSelected(FilePath, DateTimeColumn);
                     break;
             }
         }
@@ -147,41 +326,9 @@ namespace Comment_Analyzer.ViewModel
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        private void SwitchTabTo(int index) => SelectedTabIndex = index;
-        private async void SentimentAnlaysisTabSelected()
-        {
-            if (!_isSentimentAnalysisWasOpen)
-            {
-                _sentimentModel = new();
-                IEnumerable<ExcelSentimentTable> table = _sentimentModel.PredictFile(FilePath, CommentTextColumn);
-                await Task.Run(() =>
-                {
-                    AverageSentimentScore = table.Average(x => x.Score);
-                    SentimentScores = table;
+        public void SwitchTabTo(int index) => SelectedTabIndex = index;
 
-                    _isSentimentAnalysisWasOpen = true;
-                });
-            }
-        }
-        private void CommentTimelineTabSelected()
-        {
-            if (!_isTimeLineWasOpen)
-            {
-                ISeries[]? timeline = CommentsTimeline.CommentsToTimeline(FilePath, DateTimeColumn);
-                if (timeline != null)
-                {
-                    CommentTimeline = timeline;
 
-                    _isTimeLineWasOpen = true;
-                }
-                else
-                {
-                    SwitchTabTo(0);
-                }
-
-            }
-
-        }
 
     }
 }

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Comment Analyzer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+22a2d4db2de924d2f147cdd1d84fc86665799d82")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c12cccb12f5c8cec26936b09583ac93755858af2")]
 [assembly: System.Reflection.AssemblyProductAttribute("Comment Analyzer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Comment Analyzer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

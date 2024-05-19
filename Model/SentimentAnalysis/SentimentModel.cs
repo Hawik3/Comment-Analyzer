@@ -16,11 +16,8 @@ namespace Comment_Analyzer.Model.SentimentAnalysis
         readonly MLContext _MLcontext;
         public SentimentModel()
         {
-            
             _MLcontext = new();
-            // Don't forget to indicate Model path
             _model = _MLcontext.Model.Load(_pathToModel, out var _);
-            // Don't forget to indicate Model path
         }
         public ITransformer Create()
         {
