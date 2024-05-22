@@ -2,7 +2,6 @@
 using Microsoft.ML;
 using Microsoft.ML.Data;
 using System.Diagnostics;
-using System.IO;
 
 
 
@@ -10,14 +9,16 @@ namespace Comment_Analyzer.Model.SentimentAnalysis
 {
     public class SentimentModel
     {
-        const string _pathToModel = @"..\..\..\Model\SentimentAnalysis\sentimentAnalysisModel.zip";
-        const string _pathToDataset = @"";
+        string _pathToModel = @"..\..\..\Model\SentimentAnalysis\sentimentAnalysisModel.zip";
+        string _pathToDataset = @"";
+        PredictionEngine<SentimentData, SentimentPrediction> _predictionEngine;
         readonly ITransformer _model;
         readonly MLContext _MLcontext;
         public SentimentModel()
         {
             _MLcontext = new();
             _model = _MLcontext.Model.Load(_pathToModel, out var _);
+            _predictionEngine = _MLcontext.Model.CreatePredictionEngine<SentimentData, SentimentPrediction>(_model);
         }
         public ITransformer Create()
         {
@@ -43,7 +44,6 @@ namespace Comment_Analyzer.Model.SentimentAnalysis
         }
         public void Predict(string comment)
         {
-
             var predictionFunction = _MLcontext.Model.CreatePredictionEngine<SentimentTrainData, SentimentTrainPrediction>(_model);
             SentimentTrainData sampleStatement = new()
             {
@@ -58,16 +58,16 @@ namespace Comment_Analyzer.Model.SentimentAnalysis
             var array = ExcelRedactor.GetArrayFromFile(path, column);
             if (array != null)
             {
-                var predictionFunction = _MLcontext.Model.CreatePredictionEngine<SentimentData, SentimentPrediction>(_model);
+                
 
                 for (int i = 0; i < array.Length; i++)
                 {
-                    SentimentData sampleStatement = new ()
+                    SentimentData sampleStatement = new()
                     {
                         Text = array[i].ToString()
                     };
 
-                    var resultPrediction = predictionFunction.Predict(sampleStatement);
+                    var resultPrediction = _predictionEngine.Predict(sampleStatement);
                     ExcelSentimentTable excelTable = new()
                     {
                         Score = resultPrediction.Score,
@@ -80,7 +80,7 @@ namespace Comment_Analyzer.Model.SentimentAnalysis
                 yield break;
 
             }
-           
+
             yield break;
         }
         public class SentimentTrainData
