@@ -69,3 +69,6 @@ E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-wind
 E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\runtimes\win-x64\native\libSkiaSharp.dll
 E:\Новая папка\Comment Analyzer\Comment Analyzer\bin\Debug\net8.0-windows10.0.17763.0\runtimes\win-x86\native\libSkiaSharp.dll
 E:\Новая папка\Comment Analyzer\Comment Analyzer\obj\Debug\net8.0-windows10.0.17763.0\Comment Analyzer.sourcelink.json
+E:\Новая папка\Comment Analyzer\Comment Analyzer\obj\Debug\net8.0-windows10.0.17763.0\View\Resources\LightTheme.baml
+E:\Новая папка\Comment Analyzer\Comment Analyzer\obj\Debug\net8.0-windows10.0.17763.0\View\Resources\DarkTheme.baml
+E:\Новая папка\Comment Analyzer\Comment Analyzer\obj\Debug\net8.0-windows10.0.17763.0\App.baml

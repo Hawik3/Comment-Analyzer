@@ -1,5 +1,4 @@
-﻿using Comment_Analyzer.Model.Excel;
-using Microsoft.ML;
+﻿using Microsoft.ML;
 using Microsoft.ML.Data;
 using System.Diagnostics;
 
@@ -53,34 +52,23 @@ namespace Comment_Analyzer.Model.SentimentAnalysis
             var resultPrediction = predictionFunction.Predict(sampleStatement);
             Debug.WriteLine(resultPrediction.Score);
         }
-        public IEnumerable<ExcelSentimentTable> PredictFile(string path, int column)
+        public IEnumerable<SentimentPrediction> PredictFile(List<string> comments)
         {
-            var array = ExcelRedactor.GetArrayFromFile(path, column);
-            if (array != null)
+            
+            foreach (var comment in comments)
             {
-                
-
-                for (int i = 0; i < array.Length; i++)
+                SentimentData sampleStatement = new()
                 {
-                    SentimentData sampleStatement = new()
-                    {
-                        Text = array[i].ToString()
-                    };
-
-                    var resultPrediction = _predictionEngine.Predict(sampleStatement);
-                    ExcelSentimentTable excelTable = new()
-                    {
-                        Score = resultPrediction.Score,
-                        CommentText = array[i].ToString()
-
-                    };
-
-                    yield return excelTable;
-                }
-                yield break;
-
+                    Text = comment
+                };
+                var resultPrediction = _predictionEngine.Predict(sampleStatement);
+                SentimentPrediction result = new()
+                {
+                    Score = resultPrediction.Score,
+                    Text = comment
+                };
+                yield return result;
             }
-
             yield break;
         }
         public class SentimentTrainData

@@ -12,5 +12,11 @@
     <Page Update="View\MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\Resources\DarkTheme.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\Resources\LightTheme.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 </Project>

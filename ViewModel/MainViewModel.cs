@@ -1,111 +1,17 @@
 ﻿using Comment_Analyzer.Model;
-using Comment_Analyzer.Model.Excel;
 using Comment_Analyzer.Model.SentimentAnalysis;
 using Comment_Analyzer.Services;
 using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using Microsoft.Win32;
 using System.ComponentModel;
-using System.Globalization;
 using System.Runtime.CompilerServices;
-using System.Windows.Data;
-using System.Windows;
+using static Comment_Analyzer.Model.SentimentAnalysis.SentimentModel;
 
 namespace Comment_Analyzer.ViewModel
 {
-    //public class SentimentAnalysisViewModel : INotifyPropertyChanged
-    //{
-    //    internal SentimentModel? _sentimentModel = null;
-    //    internal bool _isSentimentAnalysisWasOpen = false;
-    //    internal IEnumerable<ExcelSentimentTable> _sentimentScores = [];
-    //    internal float _averageSentimentScore;
-    //    public float AverageSentimentScore
-    //    {
-    //        get { return _averageSentimentScore; }
-    //        set
-    //        {
-    //            _averageSentimentScore = value;
-    //            OnPropertyChanged();
-    //        }
-    //    }
-
-
-
-    //    public IEnumerable<ExcelSentimentTable> SentimentScores
-    //    {
-    //        get { return _sentimentScores; }
-    //        set
-    //        {
-    //            _sentimentScores = value;
-    //            OnPropertyChanged();
-    //        }
-    //    }
-    //    internal void SentimentAnlaysisTabSelected(string FilePath, int CommentTextColumn)
-    //    {
-    //        if (!_isSentimentAnalysisWasOpen)
-    //        {
-    //            Thread analysis = new(StartAnalysis);
-    //            analysis.Start();
-
-    //        }
-    //        void StartAnalysis()
-    //        {
-    //            _sentimentModel = new();
-    //            IEnumerable<ExcelSentimentTable> table = _sentimentModel.PredictFile(FilePath, CommentTextColumn);
-    //            AverageSentimentScore = table.Average(x => x.Score);
-    //            SentimentScores = table;
-    //            _isSentimentAnalysisWasOpen = true;
-    //        }
-    //    }
-    //    public void OnPropertyChanged([CallerMemberName] string prop = "")
-    //    {
-    //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-    //    }
-    //    public event PropertyChangedEventHandler? PropertyChanged;
-    //}
-    //public class CommentTimelineViewModel : INotifyPropertyChanged 
-    //{
-    //    internal bool _isTimeLineWasOpen = false;
-    //    internal ISeries[] _commentTimeline = [];
-    //    public List<Axis> XAxis { get; } = [new Axis { Labeler = (value) => (value + "h").ToString() }];
-    //    public ISeries[] CommentTimeline
-    //    {
-    //        get { return _commentTimeline; }
-    //        set
-    //        {
-    //            _commentTimeline = value;
-    //            OnPropertyChanged();
-    //        }
-    //    }
-    //    internal void CommentTimelineTabSelected(string FilePath, int DateTimeColumn)
-    //    {
-    //        if (!_isTimeLineWasOpen)
-    //        {
-    //            ISeries[]? timeline = CommentsTimeline.CommentsToTimeline(FilePath, DateTimeColumn);
-    //            if (timeline is not null)
-    //            {
-    //                CommentTimeline = timeline;
-
-    //                _isTimeLineWasOpen = true;
-    //            }
-    //            else
-    //            {
-
-    //            }
-
-    //        }
-
-    //    }
-    //    public void OnPropertyChanged([CallerMemberName] string prop = "")
-    //    {
-    //        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-    //    }
-    //    public event PropertyChangedEventHandler? PropertyChanged;
-    //}
-    
     public class MainViewModel : INotifyPropertyChanged
     {
-        
         public class CommentTimelineViewModel : INotifyPropertyChanged
         {
             internal bool _isNotCommentTimeLineLoaded = true;
@@ -136,7 +42,7 @@ namespace Comment_Analyzer.ViewModel
                 {
                     Thread timeline = new(Start);
                     timeline.Start();
-
+                   
                 }
                 void Start()
                 {
@@ -167,7 +73,7 @@ namespace Comment_Analyzer.ViewModel
             internal bool _isNotSentimentAnalysisLoaded = true;
             internal SentimentModel? _sentimentModel = null;
             internal bool _isSentimentAnalysisWasOpen = false;
-            internal IEnumerable<ExcelSentimentTable> _sentimentScores = [];
+            internal IEnumerable<SentimentPrediction> _sentimentScores = [];
             internal float _averageSentimentScore;
             public bool IsNotSentimentAnalysisLoaded
             {
@@ -194,7 +100,7 @@ namespace Comment_Analyzer.ViewModel
             public event PropertyChangedEventHandler? PropertyChanged;
 
 
-            public IEnumerable<ExcelSentimentTable> SentimentScores
+            public IEnumerable<SentimentPrediction> SentimentScores
             {
                 get { return _sentimentScores; }
                 set
@@ -213,8 +119,9 @@ namespace Comment_Analyzer.ViewModel
                 }
                 void StartAnalysis()
                 {
-                    _sentimentModel = new();
-                    IEnumerable<ExcelSentimentTable> table = _sentimentModel.PredictFile(FilePath, CommentTextColumn);
+                    _sentimentModel ??= new();
+                    var comments = ExcelRedactor.GetArrayFromFile(FilePath, CommentTextColumn);
+                    IEnumerable<SentimentPrediction> table = _sentimentModel.PredictFile(comments);
                     AverageSentimentScore = table.Average(x => x.Score);
                     SentimentScores = table;
                     _isSentimentAnalysisWasOpen = true;
@@ -302,6 +209,12 @@ namespace Comment_Analyzer.ViewModel
                         }
                         SentimentAnalysis._isSentimentAnalysisWasOpen = false;
                         CommentTimeline._isTimeLineWasOpen = false;
+                        SentimentAnalysis.AverageSentimentScore = 0;
+                        SentimentAnalysis.SentimentScores = [];
+                        CommentTimeline.CommentTimeline = [];
+                        SentimentAnalysis.IsNotSentimentAnalysisLoaded = true;
+                        CommentTimeline.IsNotCommentTimeLineLoaded = true;
+                        SwitchTabTo(0);
 
                     });
             }

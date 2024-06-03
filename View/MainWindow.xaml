@@ -7,90 +7,101 @@
     xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:Comment_Analyzer.ViewModel"
-    Title="Comment Timeline"
+    Title="Comment Analyzer"
     Width="1080"
     Height="480"
+    ResizeMode="CanMinimize"
+    Style="{DynamicResource WindowStyle}"
     mc:Ignorable="d">
-    <Window.Background>
-        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-            <GradientStop Offset="0" Color="LightGray" />
-            <GradientStop Offset="1" Color="WhiteSmoke" />
-        </LinearGradientBrush>
-    </Window.Background>
+
+
     <Window.DataContext>
         <vm:MainViewModel />
 
     </Window.DataContext>
     <Window.Resources>
+
         <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
     </Window.Resources>
+
     <StackPanel>
 
 
-        <StackPanel Margin="25,0,0,0" Orientation="Horizontal">
+        <DockPanel Margin="25,0,0,0">
             <Button
                 Width="60"
                 Height="30"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                Background="White"
                 Command="{Binding OpenCommand}"
-                Content="Open" />
+                Content="Open"
+                Style="{DynamicResource ButtonStyle}" />
 
             <StackPanel Margin="10,7,10,0">
-                <TextBlock Text="Comment text column:" />
-                <ComboBox
-                    Background="White"
-                    ItemsSource="{Binding Numbers}"
-                    SelectedValue="{Binding CommentTextColumn}" />
+                <TextBlock Style="{DynamicResource TextBlockStyle}" Text="Comment text column:" />
+                <ComboBox ItemsSource="{Binding Numbers}" SelectedValue="{Binding CommentTextColumn}" />
 
             </StackPanel>
             <StackPanel Margin="10,7,10,0">
-                <TextBlock Text="Date time column:" />
-                <ComboBox
-                    Background="White"
-                    ItemsSource="{Binding Numbers}"
-                    SelectedValue="{Binding DateTimeColumn}" />
+                <TextBlock Style="{DynamicResource TextBlockStyle}" Text="Date time column:" />
+                <ComboBox ItemsSource="{Binding Numbers}" SelectedValue="{Binding DateTimeColumn}" />
 
             </StackPanel>
             <TextBlock
+                HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 FontSize="20"
-                Text="{Binding FilePath}" />
-        </StackPanel>
+                Text="{Binding FilePath}"
+                Style="{DynamicResource TextBlockStyle}"/>
+            <Button
+                HorizontalAlignment="Right"
+                Click="ThemeChange"
+                Content="Change Theme"
+                Style="{DynamicResource ButtonStyle}"
+                Margin="10"/>
+        </DockPanel>
 
         <TabControl
             x:Name="tabs"
             Margin="20,20,20,20"
-            SelectedIndex="{Binding SelectedTabIndex}">
-            <TabItem>
-                <TabItem.Header>
-                    <TextBlock Text="Start page" />
-                </TabItem.Header>
+            SelectedIndex="{Binding SelectedTabIndex}"
+            Style="{DynamicResource TabControlStyle}">
+            <TabItem Header="Start page" Style="{DynamicResource TabItemStyle}">
                 <TabItem.Content>
-                    <StackPanel>
+                    <StackPanel Style="{DynamicResource StackPanelStyle}">
                         <TextBlock
                             HorizontalAlignment="Center"
                             FontSize="26"
                             FontWeight="Bold"
+                            Style="{DynamicResource TextBlockStyle}"
                             Text="Comment Analyzer v0.2" />
-                        <TextBlock FontSize="16" Text="Select excel file with comments and select column with data." />
-                        <TextBlock FontSize="16">Comment text often have header "TextDisplay" or "TextOriginal". Better to choose "TextOriginal" because "TextDisplay" have tags</TextBlock>
-                        <TextBlock FontSize="16">Column with data often have header "PublishedAtUTC" or "UpdatedAtUTC". Better to choose "PublishedAtUTC"</TextBlock>
-                        <TextBlock FontSize="20" FontWeight="Bold">Don't forget to delete headers to avoid bugs!</TextBlock>
+                        <TextBlock
+                            FontSize="16"
+                            Style="{DynamicResource TextBlockStyle}"
+                            Text="Select excel file with comments and select column with data." />
+                        <TextBlock FontSize="16" Style="{DynamicResource TextBlockStyle}">Comment text often have header "TextDisplay" or "TextOriginal". Better to choose "TextOriginal" because "TextDisplay" have tags</TextBlock>
+                        <TextBlock FontSize="16" Style="{DynamicResource TextBlockStyle}">Column with data often have header "PublishedAtUTC" or "UpdatedAtUTC". Better to choose "PublishedAtUTC"</TextBlock>
+                        <TextBlock
+                            FontSize="20"
+                            FontWeight="Bold"
+                            Style="{DynamicResource TextBlockStyle}">
+                            Don't forget to delete headers to avoid bugs!
+                        </TextBlock>
                     </StackPanel>
                 </TabItem.Content>
             </TabItem>
-            <TabItem IsEnabled="{Binding IsFileSelected}">
+            <TabItem IsEnabled="{Binding IsFileSelected}" Style="{DynamicResource TabItemStyle}">
                 <TabItem.Header>
                     <TextBlock>Sentiment</TextBlock>
                 </TabItem.Header>
                 <TabItem.Content>
 
 
-                    <StackPanel>
-
-                        <StackPanel Margin="25,1,0,0" Orientation="Horizontal">
+                    <StackPanel Style="{DynamicResource StackPanelStyle}">
+                        <StackPanel
+                            Margin="25,1,0,0"
+                            Orientation="Horizontal"
+                            Style="{DynamicResource StackPanelStyle}">
                             <TextBlock Text="Sentiment average score: " />
                             <TextBlock Text="{Binding SentimentAnalysis.AverageSentimentScore}" />
                         </StackPanel>
@@ -106,6 +117,7 @@
                                     VerticalAlignment="Center"
                                     Panel.ZIndex="2"
                                     FontSize="20"
+                                    Style="{DynamicResource TextBlockStyle}"
                                     Text="Sentiment analysis is loading. Please wait..." />
                             </Grid>
                             <ScrollViewer
@@ -124,7 +136,7 @@
                                     <DataGrid.Columns>
                                         <DataGridTextColumn
                                             Width="750"
-                                            Binding="{Binding CommentText}"
+                                            Binding="{Binding Text}"
                                             Header="Comment text"
                                             ScrollViewer.CanContentScroll="True"
                                             VirtualizingPanel.IsVirtualizing="True" />
@@ -142,7 +154,7 @@
                     </StackPanel>
                 </TabItem.Content>
             </TabItem>
-            <TabItem IsEnabled="{Binding IsFileSelected}">
+            <TabItem IsEnabled="{Binding IsFileSelected}" Style="{DynamicResource TabItemStyle}">
                 <TabItem.Header>
                     Timeline
                 </TabItem.Header>
@@ -158,6 +170,7 @@
                                 VerticalAlignment="Center"
                                 Panel.ZIndex="2"
                                 FontSize="20"
+                                Style="{DynamicResource TextBlockStyle}"
                                 Text="Comment Timeline is loading. Please wait..." />
                         </Grid>
 

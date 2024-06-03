@@ -10,7 +10,7 @@
         public static ISeries[]? CommentsToTimeline(string filePath, int column)
         {
 
-            ClosedXML.Excel.XLCellValue[]? dateTimeArray = ExcelRedactor.GetArrayFromFile(filePath, column);
+            List<string>? dateTimeArray = ExcelRedactor.GetArrayFromFile(filePath, column);
             if (dateTimeArray == null)
             {
                 return null;
@@ -26,7 +26,7 @@
 
             }];
         }
-        private static int[] GetCommentsCount(ClosedXML.Excel.XLCellValue[] dateTimeArray, int days)
+        private static int[] GetCommentsCount(List<string> dateTimeArray, int days)
         {
             List<DateTime> dates = dateTimeArray.Select(value => DateTime.Parse(value.ToString())).ToList();
             DateTime firstDate = dates.Min();
